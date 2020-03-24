@@ -48,3 +48,4 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             Movie.movie_titles
         ])
     end 
+
