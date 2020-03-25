@@ -2,7 +2,7 @@ Movie.destroy_all
 Viewer.destroy_all
 Ticket.destroy_all
 #ticket last
-
+#run to reset
 #rake db:seed every time this file is changed 
 
 
