@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
     def self.titles
         self.all.map {|movie| movie.title}
     end
-
+  
     def self.genres
         self.all.map {|movie| movie.genre}
     end
@@ -15,6 +15,7 @@ class Movie < ActiveRecord::Base
         self.all.map{|movie| movie.rating}
     end
 
+
     def self.locations
         self.all.map{|movie| movie.location}
     end
@@ -22,4 +23,5 @@ class Movie < ActiveRecord::Base
     def self.runtimes(min, max)
         self.all.select {|movie| movie.runtime >= min && movie.runtime <= max}
     end
+
 end
