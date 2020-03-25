@@ -1,4 +1,8 @@
 require_relative "./config/environment.rb"
+<<<<<<< HEAD
+
+def how_to_pick_a_movie()
+=======
 require_relative "./welcome_user.rb"
 
 
@@ -7,6 +11,7 @@ def how_to_pick_a_movie()
     
     puts "Welcome #{viewer.name}! How would you like to select a movie?"
 
+>>>>>>> Aidan
     movie_selection_prompt = TTY::Prompt.new()
 
 movie_selection = movie_selection_prompt.select("List movies by:",[
@@ -20,14 +25,29 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection_prompt = TTY::Prompt.new()
 
     genre_selection = genre_selection_prompt.select("Genres:", [
+<<<<<<< HEAD
+        "Action",
+        "Comedy",
+        "Horror",
+        "Romance",
+        "Sci Fi",
+        "Thriller"
+    ])
+=======
             Movie.movie_genres
         ])
+>>>>>>> Aidan
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
         title_selection = title_selection_prompt.select("Titles:", [
             Movie.movie_titles
         ])
+<<<<<<< HEAD
+    end 
+
+end
+=======
     elsif movie_selection == "Rating"
         rating_selection_prompt = TTY::Prompt.new()
 
@@ -38,3 +58,4 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     # end 
     end
 end
+>>>>>>> Aidan
