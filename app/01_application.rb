@@ -52,18 +52,24 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection = genre_selection_prompt.select("Genres:", [
             Movie.genres
         ])
+        @@movie_choice = genre_selection
+        
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
         title_selection = title_selection_prompt.select("Titles:", [
             Movie.titles
         ])
+        @@movie_choice = title_selection
+
     elsif movie_selection == "Locations"
         location_selection_prompt = TTY::Prompt.new()
 
         location_selection = location_selection_prompt.select("Locations:", [
             Movie.locations
         ])
+        @@movie_choice = location_selection
+
     elsif movie_selection == "Runtime" 
         puts "Enter a minimum runtime for your movie(in minutes):"
             min_time = gets.chomp
@@ -74,6 +80,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
                 Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
+            @@movie_choice = runtime_selection
     elsif movie_selection == "Rating" 
             puts "Enter a minimum rrating for your movie(0.1-10.0):"
                 min_rate = gets.chomp
@@ -84,7 +91,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             rating_selection = rating_selection_prompt.select("Ratings:", [
                 Movie.ratings(min_rate.to_f, max_rate.to_f)
             ])
-        
+            @@movie_choice = rating_selection
     
         end
     end
