@@ -10,7 +10,7 @@ def self.welcome_user
     input_name = gets.strip
 
     if (Viewer.find_viewer(input_name))
-        viewer = Viewer.find_viewer(input_name)
+        @@viewer = Viewer.find_viewer(input_name)
     else 
         puts "Please enter your email address:"
         input_email = gets.strip
@@ -22,6 +22,7 @@ def self.welcome_user
             "American Express"
     ])
         @@viewer = Viewer.create({name: input_name, email_address: input_email,payment_option: payment})
+        binding.pry
     end
 
 end
@@ -29,9 +30,9 @@ end
 
 
 
-def self.how_to_pick_a_movie(viewer)
+def self.how_to_pick_a_movie
     
-    puts "Welcome #{viewer[:name]}! How would you like to select a movie?"
+    puts "Welcome #{@@viewer.name}! How would you like to select a movie?"
 
     movie_selection_prompt = TTY::Prompt.new()
 
