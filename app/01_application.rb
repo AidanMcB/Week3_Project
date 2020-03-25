@@ -1,6 +1,6 @@
 class Application < ActiveRecord::Base
 
-    @@viewer = {}
+        @@viewer = nil
 
 def self.welcome_user
 
@@ -26,12 +26,12 @@ def self.welcome_user
 
 end
 
-attr_accessor :viewer
 
-def self.how_to_pick_a_movie()
-    # viewer = Application.welcome_user.viewer
+
+
+def self.how_to_pick_a_movie(viewer)
     
-    puts "Welcome #{viewer.name}! How would you like to select a movie?"
+    puts "Welcome #{viewer[:name]}! How would you like to select a movie?"
 
     movie_selection_prompt = TTY::Prompt.new()
 
@@ -54,12 +54,6 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         title_selection = title_selection_prompt.select("Titles:", [
             Movie.titles
         ])
-    elsif movie_selection == "Rating"
-        rating_selection_prompt = TTY::Prompt.new()
-
-        rating_selection = rating_selection_prompt.select("Ratings:", [
-            Movie.ratings
-        ])
     elsif movie_selection == "Locations"
         location_selection_prompt = TTY::Prompt.new()
 
@@ -74,12 +68,28 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection_prompt = TTY::Prompt.new()
             
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
-                Movie.runtimes
+                Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
+        elsif movie_selection == "Rating" 
+            puts "Enter a minimum rrating for your movie(0.1-10.0):"
+                min_rate = gets.chomp
+            puts "Enter a maximum rating for your movie(0.1-10.0):"
+                max_rate = gets.chomp
+                rating_selection_prompt = TTY::Prompt.new()
+                
+                rating_selection = rating_selection_prompt.select("Ratings:", [
+                    Movie.ratings(min_rate.to_f, max_rate.to_f)
+                ])
         
     
     end
 end
+
+def self.call_current_viewer
+    @@viewer 
+end
+    
 end
 
+ 
 
