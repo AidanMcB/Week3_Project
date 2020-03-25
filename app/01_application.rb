@@ -52,7 +52,6 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection = genre_selection_prompt.select("Genres:", [
             Movie.genres
         ])
-        @@movie_choice = genre_se
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
@@ -75,7 +74,6 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
                 Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
-            @@movie_choice = run_time
     elsif movie_selection == "Rating" 
             puts "Enter a minimum rrating for your movie(0.1-10.0):"
                 min_rate = gets.chomp
