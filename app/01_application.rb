@@ -76,10 +76,9 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
                 Movie.runtimes
             ])
-        
-    
+        end
+
     end
-end
 end
 
 
