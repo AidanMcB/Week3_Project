@@ -41,7 +41,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         "Sci Fi",
         "Thriller"
     ])
-    elsif movie_selection = "Title"
+    elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
         title_selection = title_selection_prompt.select("Titles:", [
