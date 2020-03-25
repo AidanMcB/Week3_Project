@@ -1,17 +1,38 @@
-require_relative "./config/environment.rb"
-<<<<<<< HEAD
+class Application < ActiveRecord::Base
 
-def how_to_pick_a_movie()
-=======
-require_relative "./welcome_user.rb"
+    @@viewer = {}
 
+def self.welcome_user
 
-def how_to_pick_a_movie()
-    viewer = Application.welcome_user.viewer
+    puts "Welcome to Melike’s Movie Mania!"
+
+    puts "Please enter your name:"
+    input_name = gets.strip
+
+    if (Viewer.find_viewer(input_name))
+        viewer = Viewer.find_viewer(input_name)
+    else 
+        puts "Please enter your email address:"
+        input_email = gets.strip
+
+        payment_prompt = TTY::Prompt.new()
+        payment = payment_prompt.select("What is your payment option?",[
+            "Visa",
+            "Mastercard",
+            "American Express"
+    ])
+        @@viewer = Viewer.create({name: input_name, email_address: input_email,payment_option: payment})
+    end
+
+end
+
+attr_accessor :viewer
+
+def self.how_to_pick_a_movie()
+    # viewer = Application.welcome_user.viewer
     
     puts "Welcome #{viewer.name}! How would you like to select a movie?"
 
->>>>>>> Aidan
     movie_selection_prompt = TTY::Prompt.new()
 
 movie_selection = movie_selection_prompt.select("List movies by:",[
@@ -25,29 +46,14 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection_prompt = TTY::Prompt.new()
 
     genre_selection = genre_selection_prompt.select("Genres:", [
-<<<<<<< HEAD
-        "Action",
-        "Comedy",
-        "Horror",
-        "Romance",
-        "Sci Fi",
-        "Thriller"
-    ])
-=======
             Movie.movie_genres
         ])
->>>>>>> Aidan
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
         title_selection = title_selection_prompt.select("Titles:", [
             Movie.movie_titles
         ])
-<<<<<<< HEAD
-    end 
-
-end
-=======
     elsif movie_selection == "Rating"
         rating_selection_prompt = TTY::Prompt.new()
 
@@ -58,4 +64,8 @@ end
     # end 
     end
 end
->>>>>>> Aidan
+end
+
+
+
+end
