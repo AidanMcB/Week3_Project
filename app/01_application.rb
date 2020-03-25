@@ -1,6 +1,7 @@
 class Application < ActiveRecord::Base
 
         @@viewer = nil
+        @@movie_choice = nil
 
 def self.welcome_user
 
@@ -29,6 +30,8 @@ end
 
 
 
+    #determines how a user would like to viewe their movie options
+    #saves their selected movie in a class variable allowing it to be used later
 
 def self.how_to_pick_a_movie
     
@@ -49,6 +52,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection = genre_selection_prompt.select("Genres:", [
             Movie.genres
         ])
+        @@movie_choice = genre_se
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
@@ -71,24 +75,29 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
                 Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
-        elsif movie_selection == "Rating" 
+            @@movie_choice = run_time
+    elsif movie_selection == "Rating" 
             puts "Enter a minimum rrating for your movie(0.1-10.0):"
                 min_rate = gets.chomp
             puts "Enter a maximum rating for your movie(0.1-10.0):"
                 max_rate = gets.chomp
                 rating_selection_prompt = TTY::Prompt.new()
                 
-                rating_selection = rating_selection_prompt.select("Ratings:", [
-                    Movie.ratings(min_rate.to_f, max_rate.to_f)
-                ])
+            rating_selection = rating_selection_prompt.select("Ratings:", [
+                Movie.ratings(min_rate.to_f, max_rate.to_f)
+            ])
         
     
+        end
     end
-end
 
-def self.call_current_viewer
-    @@viewer 
-end
+    def self.call_current_viewer
+        @@viewer 
+    end
+
+    def self.call_movie_choice
+        @@movie_choice
+    end
     
 end
 

@@ -12,15 +12,17 @@ class Movie < ActiveRecord::Base
     end
 
     def self.locations
-        self.all.map{|movie| movie.location}
+        Ticket.all.map{|ticket| ticket.location}
     end
 
     def self.runtimes(min, max)
-        self.all.select {|movie| movie.runtime >= min && movie.runtime <= max}
+        runtime = self.all.select {|movie| movie.runtime >= min && movie.runtime <= max}
+        runtime.map {|movie| [movie.title, movie.runtime.to_s + " minutes"]}
     end
 
     def self.ratings(min, max)
-        self.all.select {|movie| movie.rating >= min && movie.rating <= max}
+        rating = self.all.select {|movie| movie.rating >= min && movie.rating <= max}
+        rating.map {|movie| [movie.title, movie.rating.to_s + " out of 10"]}
     end
 
 end
