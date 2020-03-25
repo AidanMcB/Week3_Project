@@ -3,15 +3,23 @@ class Movie < ActiveRecord::Base
     has_many(:viewers, through: :tickets)
 
 
-    def self.movie_titles
+    def self.titles
         self.all.map {|movie| movie.title}
     end
 
-    def self.movie_genres
+    def self.genres
         self.all.map {|movie| movie.genre}
     end
 
-    def self.movie_ratings
+    def self.ratings
         self.all.map{|movie| movie.rating}
+    end
+
+    def self.locations
+        self.all.map{|movie| movie.location}
+    end
+
+    def self.runtimes(min, max)
+        self.all.select {|movie| movie.runtime >= min && movie.runtime <= max}
     end
 end
