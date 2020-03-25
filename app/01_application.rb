@@ -46,26 +46,40 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection_prompt = TTY::Prompt.new()
 
     genre_selection = genre_selection_prompt.select("Genres:", [
-            Movie.movie_genres
+            Movie.genres
         ])
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
         title_selection = title_selection_prompt.select("Titles:", [
-            Movie.movie_titles
+            Movie.titles
         ])
     elsif movie_selection == "Rating"
         rating_selection_prompt = TTY::Prompt.new()
 
         rating_selection = rating_selection_prompt.select("Ratings:", [
-
+            Movie.ratings
         ])
-    # elsif movie_selection
-    # end 
+    elsif movie_selection == "Locations"
+        location_selection_prompt = TTY::Prompt.new()
+
+        location_selection = location_selection_prompt.select("Locations:", [
+            Movie.locations
+        ])
+    elsif movie_selection == "Runtime" 
+        puts "Enter a minimum runtime for your movie(in minutes):"
+            min_time = gets.chomp
+        puts "Enter a maximum runtime for your movie(in minutes):"
+            max_time = gets.chomp
+            runtime_selection_prompt = TTY::Prompt.new()
+            
+            runtime_selection = runtime_selection_prompt.select("Runtimes:", [
+                Movie.runtimes
+            ])
+        
+    
     end
 end
 end
 
 
-
-end
