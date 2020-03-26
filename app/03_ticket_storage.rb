@@ -33,7 +33,6 @@ class TicketStorage < ActiveRecord::Base
     end
 
 
-
     def self.save_for_later
         @@save_for_later
     end
