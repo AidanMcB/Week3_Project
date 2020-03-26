@@ -2,6 +2,7 @@ class Application < ActiveRecord::Base
 
         @@viewer = nil
         @@movie_choice = nil
+        @@current_movie = nil
 
 def self.welcome_user
 #welcomes a user
@@ -48,6 +49,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     "Runtime",
     "Location"
 ])
+    # binding.pry
     if movie_selection == "Genre"
     genre_selection_prompt = TTY::Prompt.new()
 
@@ -61,6 +63,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             genre_array.map {|movie| movie.title}])
 
             @@movie_choice = genre
+            @@current_movie = Movie.all.find_by({title: @@movie_choice })
             
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
@@ -69,6 +72,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             Movie.titles
         ])
         @@movie_choice = title_selection
+        @@current_movie = Movie.all.find_by({title: @@movie_choice })
         
     elsif movie_selection == "Location"
         location_selection_prompt = TTY::Prompt.new()
@@ -85,6 +89,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             ])
 
             @@movie_choice = location
+            @@current_movie = Movie.all.find_by({title: @@movie_choice })
         
     elsif movie_selection == "Runtime" 
         puts "Enter a minimum runtime for your movie(in minutes):"
@@ -97,6 +102,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                 Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
             @@movie_choice = runtime_selection
+            @@current_movie = Movie.all.find_by({title: @@movie_choice })
             
     elsif movie_selection == "Rating" 
         loop do #loops through the ratings prompt until the input matches the prompt
@@ -125,6 +131,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                    ])  
                     break
                     @@movie_choice = rating_selection
+                    @@current_movie = Movie.all.find_by({title: @@movie_choice })
                 end
                 end
                          
@@ -139,6 +146,10 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
 
     def self.call_movie_choice
         @@movie_choice
+    end
+
+    def self.current_movie
+        @@current_movie
     end
     
 end

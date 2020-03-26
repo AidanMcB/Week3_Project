@@ -1,26 +1,31 @@
 class PickAMovie < ActiveRecord::Base
 
-    @@movie_choice = Application.call_movie_choice
-    #classs varioable
+    @@seat_info = nil
     
 
 
    def self.tickets
+    current_movie = Application.current_movie
     viewer = Application.call_current_viewer
     purchase_selection = TTY::Prompt.new()
     purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket", "Go back to the options", "See recommended movies"])
 
     if purchase_prompt == "Purchase a ticket"
-        puts "How many tickets would you like to purchase?"
+        puts "How many seats would you like to purchase?"
         user_input = gets.strip
-        num_tickets = user_input.to_i
+        @@seat_info = user_input.to_i
 
 
-        puts "When would you like to see the show?"
-        show_time = gets.strip
+
+        showtime_selection = TTY::Prompt.new()
+        showtime_prompt = showtime_selection.select("When would you like to see the show?",["7.00 PM", 
+            "8.00 PM", 
+            "9.00 PM", 
+            "10.00 PM"
+            ])
 
         age_selection = TTY::Prompt.new()
-        age_prompt = age_selection.select("Which age group are you buying this for", ["adult", "child", "senior"])
+         age_prompt= age_selection.select("Which age group are you buying this ticket for", ["adult", "child", "senior"])
             if age_selection == "adult"
                 total = num_tickets * 13.00
             elsif age_selection == "child"
@@ -32,9 +37,15 @@ class PickAMovie < ActiveRecord::Base
             location_selection = TTY::Prompt.new()
             location_prompt = location_selection.select("Where would you like to see the movie?", ["Main St", "Capitol", "Sugarland"])
           
-        #ik i am passing a local variable below
-        puts " Thank you for your purchase, #{viewer.name}! Enjoy your movie"
-            
+            #  def self.purchase
+            # puts "Thank you for your purchase, #{viewer.name}! Here is your ticket info:"
+            # puts "Movie title:"
+            # @@movie_choice = Movie.titles
+            # puts "Seats:"
+            # @@seat_info =
+            #  end
+            Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
+           
         
     elsif purchase_prompt == "Go back to the options"
         #line below
@@ -53,6 +64,10 @@ class PickAMovie < ActiveRecord::Base
             
         ]) 
     end
+   end
+
+   def self.movie_choice
+    @@movie_choice
    end
 end
 
