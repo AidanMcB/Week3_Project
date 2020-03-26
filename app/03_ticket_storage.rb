@@ -17,7 +17,7 @@ class TicketStorage < ActiveRecord::Base
 
     def self.save_to_array      #saves a movie to an array to watch later
         movie_choice = Application.call_movie_choice
-        binding.pry
+    
         sfl_prompt = TTY::Prompt.new()
         sfl = sfl_prompt.select("Would you like to save this movie to consider later?", [
             "Yes",

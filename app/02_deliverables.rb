@@ -44,8 +44,11 @@ class PickAMovie < ActiveRecord::Base
             # puts "Seats:"
             # @@seat_info =
             #  end
-            Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
-           
+            ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
+    
+            puts "Here is your ticket!"
+            puts Hirb::Helpers::AutoTable.render(ticket)
+
         
     elsif purchase_prompt == "Go back to the options"
         #line below
