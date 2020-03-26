@@ -31,11 +31,10 @@ class PickAMovie < ActiveRecord::Base
 
             location_selection = TTY::Prompt.new()
             location_prompt = location_selection.select("Where would you like to see the movie?", ["Main St", "Capitol", "Sugarland"])
-            
-        
-     
+          
+        #ik i am passing a local variable below
         puts " Thank you for your purchase, #{viewer.name}! Enjoy your movie"
-    
+            
         
     elsif purchase_prompt == "Go back to the options"
         #line below
