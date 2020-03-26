@@ -2,10 +2,11 @@ class PickAMovie < ActiveRecord::Base
 
     @@movie_choice = Application.call_movie_choice
     #classs varioable
-    @@viewer = Application.call_current_viewer
+    
 
 
    def self.tickets
+    viewer = Application.call_current_viewer
     purchase_selection = TTY::Prompt.new()
     purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket", "Go back to the options", "See recommended movies"])
 
@@ -30,11 +31,10 @@ class PickAMovie < ActiveRecord::Base
 
             location_selection = TTY::Prompt.new()
             location_prompt = location_selection.select("Where would you like to see the movie?", ["Main St", "Capitol", "Sugarland"])
-            
-        
+          
         #ik i am passing a local variable below
         puts " Thank you for your purchase, #{viewer.name}! Enjoy your movie"
-    
+            
         
     elsif purchase_prompt == "Go back to the options"
         #line below

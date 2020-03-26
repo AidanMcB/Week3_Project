@@ -59,7 +59,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             genre_array.map {|movie| movie.title}])
 
             @@movie_choice = genre
-        
+            
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
@@ -67,7 +67,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             Movie.titles
         ])
         @@movie_choice = title_selection
-
+        
     elsif movie_selection == "Location"
         location_selection_prompt = TTY::Prompt.new()
                
@@ -97,20 +97,40 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             @@movie_choice = runtime_selection
             
     elsif movie_selection == "Rating" 
-            puts "Enter a minimum rrating for your movie(0.1-10.0):"
+        loop do #loops through the ratings prompt until the input matches the prompt
+            puts "Enter a minimum rating for your movie(5.0-10.0):"
                 min_rate = gets.chomp
-            puts "Enter a maximum rating for your movie(0.1-10.0):"
+            puts "Enter a maximum rating for your movie(5.0-10.0):"
                 max_rate = gets.chomp
-                rating_selection_prompt = TTY::Prompt.new()
+    
+                #restrict the input to 5.0 - 10.0
+                if min_rate.to_f < 5.0 || max_rate.to_f > 10.0
+                    puts "Please eneter a valid rating"
+                    # rating_selection_prompt = TTY::Prompt.new()
                 
-            rating_selection = rating_selection_prompt.select("Ratings:", [
-                Movie.ratings(min_rate.to_f, max_rate.to_f)
-            ])
-            @@movie_choice = rating_selection
-
+                    #  rating_selection = rating_selection_prompt.select("Ratings:", [
+                    #  Movie.ratings(min_rate.to_f, max_rate.to_f)
+                    # ])  
+            
+                elsif Movie.ratings(min_rate.to_f, max_rate.to_f) == []
+                    puts "No movies are out within that rating range, please try another range"
+                   
+                else 
+                    rating_selection_prompt = TTY::Prompt.new()
+                
+                    rating_selection = rating_selection_prompt.select("Ratings:", [
+                    Movie.ratings(min_rate.to_f, max_rate.to_f)
+                   ])  
+                    break
+                    @@movie_choice = rating_selection
+                end
+                end
+                         
+               
         end
+        
     end
-
+   
     def self.call_current_viewer
         @@viewer 
     end
