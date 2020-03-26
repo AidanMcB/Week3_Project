@@ -6,12 +6,13 @@ class TicketStorage < ActiveRecord::Base
 
     def self.view_my_cart #prompts the user to see if they want to view their saved movies
         view_cart_prompt = TTY::Prompt.new()
-        cart_view = view_cart_prompt.select("Would you like to view your cart?", [
+        cart_view = view_cart_prompt.select("Would you like to view the movies you saved for later?", [
             "Yes",
             "No"
         ])
         if cart_view == "Yes"
             puts @@save_for_later
+        else 
         end
     end
 

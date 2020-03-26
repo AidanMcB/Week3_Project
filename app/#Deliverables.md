@@ -24,3 +24,6 @@
 
 #Stretch Goal 
 #saving a movie for later into an array (attached to the viewer?(self))
+
+
+#style 
