@@ -49,7 +49,7 @@ class PickAMovie < ActiveRecord::Base
         
     elsif purchase_prompt == "Go back to the options"
         #line below
-        Application.how_to_pick_a_movie()
+        movies_app
 
     elsif purchase_prompt == "See recommended movies"
         recommended_selection = TTY::Prompt.new()
