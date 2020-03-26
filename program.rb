@@ -2,6 +2,7 @@ require_relative "./config/environment.rb"
 
 
 
+
 Application.welcome_user        #welcoems or creates a new user
 def movies_app
 Application.how_to_pick_a_movie #assigns value to @@movie_choice
@@ -13,5 +14,5 @@ puts "Thanks for choosing Melike's Movie Mania"
 #TicketStorage.close_app         #prints a thank you message
 end
 
-
 movies_app
+
