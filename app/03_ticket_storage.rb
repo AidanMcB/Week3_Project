@@ -8,6 +8,7 @@ class TicketStorage < ActiveRecord::Base
     #     movie_choice = Application.call_movie_choice
     #     puts "Thank you for purchasing tickets to #{movie_choice}!"
     # end
+    #thats a comment
     
 
 
