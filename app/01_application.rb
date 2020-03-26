@@ -4,7 +4,10 @@ class Application < ActiveRecord::Base
         @@movie_choice = nil
 
 def self.welcome_user
-
+#welcomes a user
+#if their name already exists as a user, they are brought to the next method
+#if they are a new user, they enter their email and payment option and are 
+#created as a new user 
     puts "Welcome to Melike’s Movie Mania!"
 
     puts "Please enter your name:"
@@ -23,17 +26,14 @@ def self.welcome_user
             "American Express"
     ])
         @@viewer = Viewer.create({name: input_name, email_address: input_email,payment_option: payment})
-        binding.pry
     end
 
 end
 
 
-
-    #determines how a user would like to viewe their movie options
-    #saves their selected movie in a class variable allowing it to be used later
-
 def self.how_to_pick_a_movie
+        #determines how a user would like to viewe their movie options
+    #saves their selected movie in a class variable allowing it to be used later
     
     puts "Welcome #{@@viewer.name}! How would you like to select a movie?"
 
@@ -52,7 +52,13 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     genre_selection = genre_selection_prompt.select("Genres:", [
             Movie.genres
         ])
-        @@movie_choice = genre_selection
+       genre_array = Movie.all.select {|movie| movie.genre == genre_selection}
+      #adds a secondary prompt to select a movie of that specific genre 
+      movie_genres_prompt = TTY::Prompt.new()
+      genre = movie_genres_prompt.select("Pick a movie from the #{genre_selection} genre:", [
+            genre_array.map {|movie| movie.title}])
+
+            @@movie_choice = genre
         
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
@@ -62,14 +68,22 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         ])
         @@movie_choice = title_selection
 
-    elsif movie_selection == "Locations"
+    elsif movie_selection == "Location"
         location_selection_prompt = TTY::Prompt.new()
-
+               
         location_selection = location_selection_prompt.select("Locations:", [
-            Movie.locations
+            Movie.locations.uniq
         ])
-        @@movie_choice = location_selection
+       location_array_tickets = Ticket.all.select {|ticket| ticket.location == location_selection}
+       location_array_movies = location_array_tickets.map {|ticket| ticket.movie}
+        #adds a secondary prompt to select movies available to see at that location
+            movie_locations_prompt = TTY::Prompt.new()
+            location = movie_locations_prompt.select("Movies at #{location_selection}:", [
+                location_array_movies.map {|movie| movie.title}
+            ])
 
+            @@movie_choice = location
+        
     elsif movie_selection == "Runtime" 
         puts "Enter a minimum runtime for your movie(in minutes):"
             min_time = gets.chomp
@@ -81,6 +95,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                 Movie.runtimes(min_time.to_f, max_time.to_f)
             ])
             @@movie_choice = runtime_selection
+            
     elsif movie_selection == "Rating" 
             puts "Enter a minimum rrating for your movie(0.1-10.0):"
                 min_rate = gets.chomp
@@ -92,7 +107,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                 Movie.ratings(min_rate.to_f, max_rate.to_f)
             ])
             @@movie_choice = rating_selection
-    
+
         end
     end
 
