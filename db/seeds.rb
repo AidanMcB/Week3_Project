@@ -35,5 +35,5 @@ m7 = Movie.create({title: "Toy Story 4", rating: 7.8, actors: "Tom Hanks, Tim Al
 
 
 t1 = Ticket.create({seats: 2, movie_id: m1.id, viewer_id: v2.id, showtime: "7:00pm", price: 12.00, location: "Melike's Movies"})
-t2 = Ticket.create({seats: 2, movie_id: m2.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "The Alamo"})
+t2 = Ticket.create({seats: 2, movie_id: m2.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Main Street"})
 t3 = Ticket.create({seats: 3, movie_id: m1.id, viewer_id: v1.id, showtime: "9:00pm", price: 13.00, location: "The Alamo"})
