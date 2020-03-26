@@ -8,7 +8,8 @@ def self.welcome_user
 #if their name already exists as a user, they are brought to the next method
 #if they are a new user, they enter their email and payment option and are 
 #created as a new user 
-    puts "Welcome to Melike’s Movie Mania!"
+    a = Artii::Base.new(:font => 'slant')
+    puts a.asciify("Welcome to Melike’s Movie Mania!")
 
     puts "Please enter your name:"
     input_name = gets.strip
@@ -28,6 +29,7 @@ def self.welcome_user
         @@viewer = Viewer.create({name: input_name, email_address: input_email,payment_option: payment})
     end
 
+
 end
 
 
@@ -35,7 +37,7 @@ def self.how_to_pick_a_movie
         #determines how a user would like to viewe their movie options
     #saves their selected movie in a class variable allowing it to be used later
     
-    puts "Welcome #{@@viewer.name}! How would you like to select a movie?"
+    puts "How would you like to select a movie?"
 
     movie_selection_prompt = TTY::Prompt.new()
 
