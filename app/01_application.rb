@@ -9,7 +9,7 @@ def self.welcome_user
 #if their name already exists as a user, they are brought to the next method
 #if they are a new user, they enter their email and payment option and are 
 #created as a new user 
-    a = Artii::Base.new(:font => 'slant')
+    a = Artii::Base.new(:font => 'rozzo')
     puts a.asciify("Welcome to Melike’s Movie Mania!")
 
     puts "Please enter your name:"
@@ -64,7 +64,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
 
             @@movie_choice = genre
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
-            
+        
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
@@ -85,12 +85,12 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         #adds a secondary prompt to select movies available to see at that location
             movie_locations_prompt = TTY::Prompt.new()
             location = movie_locations_prompt.select("Movies at #{location_selection}:", [
-                location_array_movies.map {|movie| movie.title}
+                (location_array_movies.map {|movie| movie.title}).uniq
             ])
 
             @@movie_choice = location
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
-        
+ 
     elsif movie_selection == "Runtime" 
         
             runtime_selection_prompt = TTY::Prompt.new()
@@ -98,7 +98,9 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
                 Movie.runtimes
             ])
-            @@movie_choice = runtime_selection
+            runtime_array = runtime_selection.split(",")
+            runtime_title = runtime_array[0]
+            @@movie_choice = runtime_title
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
             
     elsif movie_selection == "Rating" 
@@ -126,9 +128,12 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                     rating_selection = rating_selection_prompt.select("Ratings:", [
                     Movie.ratings(min_rate.to_f, max_rate.to_f)
                    ])  
-                    break
-                    @@movie_choice = rating_selection
+                    rating_array = rating_selection.split(",")
+                    rating_title = rating_array[0]
+                    @@movie_choice = rating_title
                     @@current_movie = Movie.all.find_by({title: @@movie_choice })
+                    binding.pry
+                    break
                 end
             end
                          
@@ -145,11 +150,11 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         @@movie_choice
     end
 
-    def self.current_movie
+    def self.call_current_movie
         @@current_movie
     end
-    
+ 
 end
 
- 
+
 

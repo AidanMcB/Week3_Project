@@ -2,16 +2,19 @@ class PickAMovie < ActiveRecord::Base
 
     @@seat_info = nil
     @@total = 0
+    @@my_tickets = []
     
 
 
    def self.tickets
-    current_movie = Application.current_movie
+    current_movie = Application.call_current_movie
     viewer = Application.call_current_viewer
+    # binding.pry
     purchase_selection = TTY::Prompt.new()
-    purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket", "Go back to the options", "See recommended movies"])
+    binding.pry
+    purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket for #{current_movie.title}", "Go back to the options", "See recommended movies", "Exit"])
 
-    if purchase_prompt == "Purchase a ticket"
+    if purchase_prompt == "Purchase a ticket for #{current_movie.title}"
         puts "How many seats would you like to purchase?"
         user_input = gets.strip
         @@seat_info = user_input.to_i
@@ -37,14 +40,13 @@ class PickAMovie < ActiveRecord::Base
 
             location_selection = TTY::Prompt.new()
             location_prompt = location_selection.select("Where would you like to see the movie?", [Movie.locations.uniq])
-          
-            
+        
             ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
-    
-            puts "Here is your ticket!"
+            @@my_tickets.push(ticket)
+            
+            puts "Ticket for #{current_movie.title}"
             puts Hirb::Helpers::AutoTable.render(ticket)
 
-        
     elsif purchase_prompt == "Go back to the options"
         movies_app
 
@@ -60,6 +62,10 @@ class PickAMovie < ActiveRecord::Base
             "Joker"
             
         ]) 
+    elsif purchase_prompt == "Exit"
+        puts  "Thanks for choosing Melike's Movie Mania!"
+        exit!
+
     end
    end
 
