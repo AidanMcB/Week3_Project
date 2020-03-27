@@ -7,11 +7,12 @@ class PickAMovie < ActiveRecord::Base
 
 
    def self.tickets
+      
     current_movie = Application.call_current_movie
     viewer = Application.call_current_viewer
     # binding.pry
     purchase_selection = TTY::Prompt.new()
-    binding.pry
+   
     purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket for #{current_movie.title}", "Go back to the options", "See recommended movies", "Exit"])
 
     if purchase_prompt == "Purchase a ticket for #{current_movie.title}"
@@ -43,7 +44,15 @@ class PickAMovie < ActiveRecord::Base
         
             ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
             @@my_tickets.push(ticket)
-            
+            spinner = TTY::Spinner.new("[:spinner] Loading your ticket...", format: :pulse_2)
+
+            spinner.auto_spin # Automatic animation with default interval
+        
+            sleep(2) # Perform task
+        
+            spinner.stop('Done!') # Stop animation
+        
+            spinner = TTY::Spinner.new(clear: true)
             puts "Ticket for #{current_movie.title}"
             puts Hirb::Helpers::AutoTable.render(ticket)
 
@@ -63,7 +72,12 @@ class PickAMovie < ActiveRecord::Base
             
         ]) 
     elsif purchase_prompt == "Exit"
-        puts  "Thanks for choosing Melike's Movie Mania!"
+        def slowly
+            yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
+          end
+        slowly do
+       "Thanks for choosing Melike's Movie Mania!".light_blue
+        end
         exit!
 
     end

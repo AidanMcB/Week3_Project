@@ -8,17 +8,31 @@ def self.welcome_user
 #welcomes a user
 #if their name already exists as a user, they are brought to the next method
 #if they are a new user, they enter their email and payment option and are 
-#created as a new user 
-    a = Artii::Base.new(:font => 'rozzo')
-    puts a.asciify("Welcome to Melike’s Movie Mania!")
+#created as a new user
 
-    puts "Please enter your name:"
+    # spinner = TTY::Spinner.new('[:spinner] Loading ... ', format: :spin_2)
+    # 30.times { spinner.spin }
+  
+
+
+    def slowly
+        yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
+    end
+
+    a = Artii::Base.new(:font => 'digital')
+    puts a.asciify("Welcome to Melike’s Movie Mania!").light_magenta 
+
+
+        
+
+
+    puts "Please enter your name:".light_blue
     input_name = gets.strip
 
     if (Viewer.find_viewer(input_name))
         @@viewer = Viewer.find_viewer(input_name)
     else 
-        puts "Please enter your email address:"
+        puts "Please enter your email address:".light_blue
         input_email = gets.strip
 
         payment_prompt = TTY::Prompt.new()
@@ -38,7 +52,7 @@ def self.how_to_pick_a_movie
         #determines how a user would like to viewe their movie options
     #saves their selected movie in a class variable allowing it to be used later
     
-    puts "How would you like to select a movie?"
+    puts "How would you like to select a movie?".light_blue
 
     movie_selection_prompt = TTY::Prompt.new()
 
@@ -132,7 +146,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                     rating_title = rating_array[0]
                     @@movie_choice = rating_title
                     @@current_movie = Movie.all.find_by({title: @@movie_choice })
-                    binding.pry
+                   
                     break
                 end
             end
