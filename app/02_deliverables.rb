@@ -1,6 +1,7 @@
 class PickAMovie < ActiveRecord::Base
 
     @@seat_info = nil
+    @@total = 0
     
 
 
@@ -23,37 +24,33 @@ class PickAMovie < ActiveRecord::Base
             "9.00 PM", 
             "10.00 PM"
             ])
-
+          
         age_selection = TTY::Prompt.new()
-         age_prompt= age_selection.select("Which age group are you buying this ticket for", ["adult", "child", "senior"])
-            if age_selection == "adult"
-                total = num_tickets * 13.00
-            elsif age_selection == "child"
-                total = num_tickets * 6.00
-            elsif age_selection == "senior"
-                total = num_tickets * 8.00
+         age_prompt = age_selection.select("Which age group are you buying this ticket for?", ["adult", "child", "senior"])
+            if age_prompt == "adult"
+                @@total += @@seat_info * 13.00
+            elsif age_prompt == "child"
+                @@total += @@seat_info * 6.00
+            elsif age_prompt == "senior"
+                @@total += @@seat_info * 8.00
             end
 
             location_selection = TTY::Prompt.new()
-            location_prompt = location_selection.select("Where would you like to see the movie?", ["Main St", "Capitol", "Sugarland"])
+            location_prompt = location_selection.select("Where would you like to see the movie?", [Movie.locations.uniq])
           
-            #  def self.purchase
-            # puts "Thank you for your purchase, #{viewer.name}! Here is your ticket info:"
-            # puts "Movie title:"
-            # @@movie_choice = Movie.titles
-            # puts "Seats:"
-            # @@seat_info =
-            #  end
-            Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
-           
+            
+            ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
+    
+            puts "Here is your ticket!"
+            puts Hirb::Helpers::AutoTable.render(ticket)
+
         
     elsif purchase_prompt == "Go back to the options"
-        #line below
         movies_app
 
     elsif purchase_prompt == "See recommended movies"
         recommended_selection = TTY::Prompt.new()
-        recommended_prompt = recommended_selection.select("Here are the movies we recommend for you",[
+        recommended_prompt = recommended_selection.select("Here are the movies we recommend for you:",[
             "Ad Astra",
             "Midsommar",
             "Knives Out",
@@ -69,6 +66,11 @@ class PickAMovie < ActiveRecord::Base
    def self.movie_choice
     @@movie_choice
    end
+
+   def self.get_total
+    @@total
+   end
+
 end
 
 

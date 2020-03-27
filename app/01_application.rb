@@ -92,14 +92,11 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
         
     elsif movie_selection == "Runtime" 
-        puts "Enter a minimum runtime for your movie(in minutes):"
-            min_time = gets.chomp
-        puts "Enter a maximum runtime for your movie(in minutes):"
-            max_time = gets.chomp
+        
             runtime_selection_prompt = TTY::Prompt.new()
             
             runtime_selection = runtime_selection_prompt.select("Runtimes:", [
-                Movie.runtimes(min_time.to_f, max_time.to_f)
+                Movie.runtimes
             ])
             @@movie_choice = runtime_selection
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
@@ -113,7 +110,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     
                 #restrict the input to 5.0 - 10.0
                 if min_rate.to_f < 5.0 || max_rate.to_f > 10.0
-                    puts "Please eneter a valid rating"
+                    puts "Please enter a valid rating"
                     # rating_selection_prompt = TTY::Prompt.new()
                 
                     #  rating_selection = rating_selection_prompt.select("Ratings:", [
@@ -133,7 +130,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                     @@movie_choice = rating_selection
                     @@current_movie = Movie.all.find_by({title: @@movie_choice })
                 end
-                end
+            end
                          
                
         end
