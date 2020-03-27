@@ -64,7 +64,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
 
             @@movie_choice = genre
             @@current_movie = Movie.all.find_by({title: @@movie_choice })
-            
+            binding.pry
     elsif movie_selection == "Title"
         title_selection_prompt = TTY::Prompt.new()
 
@@ -145,11 +145,11 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
         @@movie_choice
     end
 
-    def self.current_movie
+    def self.call_current_movie
         @@current_movie
     end
     
 end
 
- 
+
 

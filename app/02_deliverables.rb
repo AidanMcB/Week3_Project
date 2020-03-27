@@ -6,7 +6,7 @@ class PickAMovie < ActiveRecord::Base
 
 
    def self.tickets
-    current_movie = Application.current_movie
+    current_movie = Application.call_current_movie
     viewer = Application.call_current_viewer
     purchase_selection = TTY::Prompt.new()
     purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket", "Go back to the options", "See recommended movies"])
@@ -34,9 +34,10 @@ class PickAMovie < ActiveRecord::Base
             elsif age_prompt == "senior"
                 @@total += @@seat_info * 8.00
             end
-                binding.pry
             location_selection = TTY::Prompt.new()
-            location_prompt = location_selection.select("Where would you like to see the movie?", ["Main St", "Capitol", "Sugarland"])
+            location_prompt = location_selection.select("Where would you like to see the movie?", [
+                
+            ])
           
             #  def self.purchase
             # puts "Thank you for your purchase, #{viewer.name}! Here is your ticket info:"
@@ -45,6 +46,7 @@ class PickAMovie < ActiveRecord::Base
             # puts "Seats:"
             # @@seat_info =
             #  end
+
             ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
     
             puts "Here is your ticket!"

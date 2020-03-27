@@ -12,7 +12,16 @@ class TicketStorage < ActiveRecord::Base
         ])
         if cart_view == "Yes"
             puts @@save_for_later
-        else 
+            exit_prompt = TTY::Prompt.new()
+            exit_prompt_selection = exit_prompt.select("Continue browsing movies?", [
+                "Yes, show me more flicks!",
+                  "No, I'm done"
+            ])
+            if exit_prompt_selection == "Yes, show me more flicks!"
+                movies_app
+            end
+        elsif cart_view == "No"
+            movies_app
         end
     end
 
@@ -28,6 +37,8 @@ class TicketStorage < ActiveRecord::Base
             @@save_for_later.push(movie_choice)
         end 
     end
+
+
 
     def self.call_save_for_later
         @@save_for_later
