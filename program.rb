@@ -10,21 +10,27 @@ require_relative "./config/environment.rb"
     
 
 
-Application.welcome_user        #welcoems or creates a new user
+Application.welcome_user        #welcomes or creates a new user
 
 def movies_app
-    Application.how_to_pick_a_movie #assigns value to @@movie_choice
+    save_for_later = TicketStorage.call_save_for_later
+    Application.how_to_pick_a_movie     #assigns value to @@movie_choice
+    
+    TicketStorage.save_to_array         #saves a movie to an array to watch later
 
-    TicketStorage.save_to_array     #saves a movie to an array to watch later
-    PickAMovie.tickets              #assigns a ticket to the viewer
-    TicketStorage.view_my_cart 
+    PickAMovie.tickets                  #assigns a ticket to the viewer
 
-TicketStorage.save_to_array     #saves a movie to an array to watch later
-PickAMovie.tickets              #assigns a ticket to the viewer
-TicketStorage.view_my_cart 
-puts "Thanks for choosing Melike's Movie Mania!"
-#TicketStorage.close_app         #prints a thank you message
+    if save_for_later != []
+        TicketStorage.view_my_cart 
+    end
+    puts "Thanks for choosing Melike's Movie Mania!"
+    #TicketStorage.close_app         #prints a thank you message
 end
 
 movies_app
+
+
+
+
+
 

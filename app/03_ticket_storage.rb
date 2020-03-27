@@ -11,6 +11,7 @@ class TicketStorage < ActiveRecord::Base
             "No"
         ])
         if cart_view == "Yes"
+            puts "You've considered these titles:"
             puts @@save_for_later
             exit_prompt = TTY::Prompt.new()
             exit_prompt_selection = exit_prompt.select("Continue browsing movies?", [
@@ -27,7 +28,7 @@ class TicketStorage < ActiveRecord::Base
 
     def self.save_to_array      #saves a movie to an array to watch later
         movie_choice = Application.call_movie_choice
-    
+    # binding.pry
         sfl_prompt = TTY::Prompt.new()
         sfl = sfl_prompt.select("Would you like to save this movie to consider later?", [
             "Yes",
@@ -35,11 +36,12 @@ class TicketStorage < ActiveRecord::Base
         ])
         if sfl == "Yes" 
             @@save_for_later.push(movie_choice).uniq
-            
+        else
+            nil
         end 
     end
 
-    puts "Here is your saved movie(s):"
+  
     def self.call_save_for_later
         @@save_for_later
     end
