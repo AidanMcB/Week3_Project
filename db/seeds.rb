@@ -11,6 +11,7 @@ v1 = Viewer.create({name: "Mel", email_address: "mel@gmail.com",
 
 v2 = Viewer.create({name: "Aidan", email_address: "Aidan@gmail.com",
      payment_option: "Visa"})
+     
 
 m1 = Movie.create({title: "Star Wars", rating: 6.8, actors: "Harrison Ford, Adam Driver", 
     runtime: 142, genre: "Sci-fi"})
@@ -34,6 +35,16 @@ m7 = Movie.create({title: "Toy Story 4", rating: 7.8, actors: "Tom Hanks, Tim Al
     runtime: 100, genre: "Animation"})
 
 
-t1 = Ticket.create({seats: 2, movie_id: m1.id, viewer_id: v2.id, showtime: "7:00pm", price: 12.00, location: "Melike's Movies"})
-t2 = Ticket.create({seats: 2, movie_id: m2.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Main Street"})
-t3 = Ticket.create({seats: 3, movie_id: m1.id, viewer_id: v1.id, showtime: "9:00pm", price: 13.00, location: "The Alamo"})
+t1 = Ticket.create({seats: 2, movie_id: m1.id, viewer_id: v2.id, showtime: "7:00pm", price: 12.00, location: "Katy"})
+t2 = Ticket.create({seats: 2, movie_id: m2.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Downtown"})
+t3 = Ticket.create({seats: 3, movie_id: m3.id, viewer_id: v2.id, showtime: "9:00pm", price: 13.00, location: "Galveston"})
+t12 = Ticket.create({seats: 3, movie_id: m5.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Spring"})
+t4 = Ticket.create({seats: 1, movie_id: m4.id, viewer_id: v1.id, showtime: "10:00pm",price: 13.00, location: "Katy"})
+t5 = Ticket.create({seats: 4, movie_id: m5.id, viewer_id: v2.id, showtime: "7:00pm", price: 13.00, location: "Downtown"})
+t6 = Ticket.create({seats: 1, movie_id: m6.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Galveston"})
+t13 = Ticket.create({seats: 3, movie_id: m1.id, viewer_id: v2.id, showtime: "10:00pm", price: 13.00, location: "Spring"})
+t7 = Ticket.create({seats: 2, movie_id: m7.id, viewer_id: v2.id, showtime: "9:00pm", price: 13.00, location: "Katy"})
+t8 = Ticket.create({seats: 1, movie_id: m1.id, viewer_id: v1.id, showtime: "10:00pm", price: 13.00, location: "Downtown"})
+t9 = Ticket.create({seats: 2, movie_id: m2.id, viewer_id: v2.id, showtime: "7:00pm", price: 13.00, location: "Galveston"})
+t10 = Ticket.create({seats: 3, movie_id: m3.id, viewer_id: v1.id, showtime: "8:00pm", price: 13.00, location: "Spring"})
+t11 = Ticket.create({seats: 3, movie_id: m4.id, viewer_id: v2.id, showtime: "9:00pm", price: 13.00, location: "Galveston"})
