@@ -15,6 +15,7 @@ class Movie < ActiveRecord::Base
         self.all.map{|movie| movie.rating}
     end
 
+
     def self.locations
         Ticket.all.map{|ticket| ticket.location}
     end
@@ -30,4 +31,5 @@ class Movie < ActiveRecord::Base
         rating.map {|movie| "#{movie.title}" + ", " +  "#{movie.rating.to_s}" + " out of 10" }
     end
 
+end
 end
