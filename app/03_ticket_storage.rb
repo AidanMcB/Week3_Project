@@ -34,20 +34,15 @@ class TicketStorage < ActiveRecord::Base
             "No"
         ])
         if sfl == "Yes" 
-            @@save_for_later.push(movie_choice)
+            @@save_for_later.push(movie_choice).uniq
+            
         end 
     end
 
-
-
+    puts "Here is your saved movie(s):"
     def self.call_save_for_later
         @@save_for_later
     end
 
-
-
-    def self.save_for_later
-        @@save_for_later
-    end
 
 end

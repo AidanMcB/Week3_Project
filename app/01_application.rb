@@ -110,7 +110,7 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
     
                 #restrict the input to 5.0 - 10.0
                 if min_rate.to_f < 5.0 || max_rate.to_f > 10.0
-                    puts "Please eneter a valid rating"
+                    puts "Please enter a valid rating"
                     # rating_selection_prompt = TTY::Prompt.new()
                 
                     #  rating_selection = rating_selection_prompt.select("Ratings:", [
