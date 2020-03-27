@@ -1,3 +1,5 @@
+require 'colorized_string'
+
 class Application < ActiveRecord::Base
 
         @@viewer = nil
@@ -9,8 +11,8 @@ def self.welcome_user
 #if their name already exists as a user, they are brought to the next method
 #if they are a new user, they enter their email and payment option and are 
 #created as a new user 
-    a = Artii::Base.new(:font => 'rozzo')
-    puts a.asciify("Welcome to Melike’s Movie Mania!")
+    a = Artii::Base.new(:font => 'digital')
+    puts a.asciify("Welcome to Melike’s Movie Mania!").blue
 
     puts "Please enter your name:"
     input_name = gets.strip
@@ -132,7 +134,6 @@ movie_selection = movie_selection_prompt.select("List movies by:",[
                     rating_title = rating_array[0]
                     @@movie_choice = rating_title
                     @@current_movie = Movie.all.find_by({title: @@movie_choice })
-                    binding.pry
                     break
                 end
             end
