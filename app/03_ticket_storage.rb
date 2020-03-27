@@ -11,6 +11,7 @@ class TicketStorage < ActiveRecord::Base
             "No"
         ])
         if cart_view == "Yes"
+            system "clear" 
             puts "You've considered these titles:"
             puts @@save_for_later
             exit_prompt = TTY::Prompt.new()
@@ -18,6 +19,7 @@ class TicketStorage < ActiveRecord::Base
                 "Yes, show me more flicks!",
                   "No, I'm done"
             ])
+            system "clear" 
             if exit_prompt_selection == "Yes, show me more flicks!"
                 movies_app
             end
