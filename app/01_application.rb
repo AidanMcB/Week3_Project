@@ -20,14 +20,13 @@ def self.welcome_user
     end
 
     a = Artii::Base.new(:font => 'digital')
-    puts a.asciify("Welcome to Melike’s Movie Mania!").light_magenta 
+    puts a.asciify("Welcome to Aidan's Movie Mania!").light_magenta 
 
 
         
 
     slowly do 
     "Please enter your name:".light_blue
-    end
     input_name = gets.strip
     system "clear" 
     if (Viewer.find_viewer(input_name))

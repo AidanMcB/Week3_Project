@@ -27,7 +27,7 @@ def movies_app
         TicketStorage.view_my_cart 
     end
     slowly do 
-      "Thanks for choosing Melike's Movie Mania!".blue
+      "Thanks for choosing Aidan's Movie Mania!".blue
     end
 
 end

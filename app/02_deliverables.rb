@@ -79,7 +79,7 @@ class PickAMovie < ActiveRecord::Base
             yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
           end
         slowly do
-       "Thanks for choosing Melike's Movie Mania!".light_blue
+       "Thanks for choosing Aidan's Movie Mania!".light_blue
         end
         exit!
 
