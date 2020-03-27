@@ -1,5 +1,5 @@
 require_relative "./config/environment.rb"
-
+ActiveRecord::Base.logger.level = 1 
 # a = Artii::Base.new(:font => 'mini')
 # puts a.asciify("Welcome to Melike’s Movie Mania!")
 # def exit_method 
@@ -8,7 +8,10 @@ require_relative "./config/environment.rb"
 #     puts "We hope to see you again!"
 # end
     
-
+def slowly
+    yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
+end
+  
 
 Application.welcome_user        #welcomes or creates a new user
 
@@ -23,8 +26,10 @@ def movies_app
     if save_for_later != []
         TicketStorage.view_my_cart 
     end
-    puts "Thanks for choosing Melike's Movie Mania!"
-    #TicketStorage.close_app         #prints a thank you message
+    slowly do 
+      "Thanks for choosing Melike's Movie Mania!".blue
+    end
+
 end
 
 movies_app
