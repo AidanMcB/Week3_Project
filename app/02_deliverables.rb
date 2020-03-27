@@ -44,6 +44,7 @@ class PickAMovie < ActiveRecord::Base
         
             ticket = Ticket.create({seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id})
             @@my_tickets.push(ticket)
+            system "clear" 
             spinner = TTY::Spinner.new("[:spinner] Loading your ticket...", format: :pulse_2)
 
             spinner.auto_spin # Automatic animation with default interval
@@ -71,7 +72,9 @@ class PickAMovie < ActiveRecord::Base
             "Joker"
             
         ]) 
+        system "clear" 
     elsif purchase_prompt == "Exit"
+        system "clear" 
         def slowly
             yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
           end
