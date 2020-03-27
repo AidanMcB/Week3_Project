@@ -11,6 +11,7 @@ class Movie < ActiveRecord::Base
         self.all.map {|movie| movie.genre}
     end
 
+
     def self.ratings
         self.all.map{|movie| movie.rating}
     end
@@ -26,8 +27,12 @@ class Movie < ActiveRecord::Base
 
     end
 
+
     def self.ratings(min, max)
         rating = self.all.select {|movie| movie.rating >= min && movie.rating <= max}
         rating.map {|movie| "#{movie.title}" + " " +  "#{movie.rating.to_s}" + " out of 10" }
     end
+
 end
+end
+
