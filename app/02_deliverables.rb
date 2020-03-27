@@ -10,7 +10,6 @@ class PickAMovie < ActiveRecord::Base
       
     current_movie = Application.call_current_movie
     viewer = Application.call_current_viewer
-    # binding.pry
     purchase_selection = TTY::Prompt.new()
    
     purchase_prompt = purchase_selection.select("What would you like to do now?", ["Purchase a ticket for #{current_movie.title}", "Go back to the options", "See recommended movies", "Exit"])

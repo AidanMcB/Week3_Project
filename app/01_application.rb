@@ -1,3 +1,5 @@
+require 'colorized_string'
+
 class Application < ActiveRecord::Base
 
         @@viewer = nil
