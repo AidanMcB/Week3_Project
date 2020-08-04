@@ -10,7 +10,7 @@ class TicketStorage < ActiveRecord::Base
             "Yes",
             "No"
         ])
-        if cart_view == "Yes"
+        if cart_view === "Yes"
             system "clear" 
             puts "You've considered these titles:"
             puts @@save_for_later
