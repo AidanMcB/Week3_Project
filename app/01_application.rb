@@ -22,9 +22,6 @@ def self.welcome_user
     a = Artii::Base.new(:font => 'digital')
     puts a.asciify("Welcome to Melike’s Movie Mania!").light_magenta 
 
-
-        
-
     slowly do 
     "Please enter your name:".light_blue
     end
