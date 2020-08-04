@@ -12,7 +12,6 @@ def slowly
     yield.each_char { |c| putc c; $stdout.flush; sleep 0.15 }
 end
   
-
 Application.welcome_user        #welcomes or creates a new user
 
 def movies_app
