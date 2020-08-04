@@ -72,7 +72,7 @@ class PickAMovie < ActiveRecord::Base
       end
 
       slowly do
-        "Thanks for choosing Melike's Movie Mania!".light_blue
+        "Thanks for choosing Movie Mania!".light_blue
       end
       exit!
     end
