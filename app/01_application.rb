@@ -61,7 +61,6 @@ class Application < ActiveRecord::Base
     # binding.pry
     if movie_selection == "Genre"
       genre_selection_prompt = TTY::Prompt.new()
-
       genre_selection = genre_selection_prompt.select("Genres:", [
         Movie.genres,
       ])
@@ -86,7 +85,7 @@ class Application < ActiveRecord::Base
       location_selection_prompt = TTY::Prompt.new()
 
       location_selection = location_selection_prompt.select("Locations:", [
-        Movie.locations.uniq,
+        Movie.sortByLocations.uniq,
       ])
       location_array_tickets = Ticket.all.select { |ticket| ticket.location == location_selection }
       location_array_movies = location_array_tickets.map { |ticket| ticket.movie }

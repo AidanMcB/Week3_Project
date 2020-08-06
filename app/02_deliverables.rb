@@ -25,6 +25,7 @@ class PickAMovie < ActiveRecord::Base
       elsif age_prompt == "senior"
         @@total += @@seat_info * 8.00
       end
+      binding.pry
 
       location_selection = TTY::Prompt.new()
       location_prompt = location_selection.select("Where would you like to see the movie?", [Movie.locations(current_movie).uniq])

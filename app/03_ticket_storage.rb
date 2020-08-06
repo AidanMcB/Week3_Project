@@ -23,8 +23,6 @@ class TicketStorage < ActiveRecord::Base
             if exit_prompt_selection == "Yes, show me more flicks!"
                 movies_app
             end
-        elsif cart_view == "No"
-            movies_app
         end
     end
 
@@ -38,11 +36,11 @@ class TicketStorage < ActiveRecord::Base
         ])
         if sfl == "Yes" 
             @@save_for_later.push(movie_choice).uniq
+            puts "This movie has been added yo your saved movies!"
         else
             nil
         end 
     end
-
   
     def self.call_save_for_later
         @@save_for_later
