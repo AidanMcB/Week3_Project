@@ -14,6 +14,10 @@ class Movie < ActiveRecord::Base
     self.all.map { |movie| movie.rating }
   end
 
+  def self.recommended
+    self.all.sample(4).map { |movie| movie.title }
+  end
+
   def self.sortByLocations
     Ticket.all.map{ |ticket| ticket.location }
   end

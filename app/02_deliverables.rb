@@ -53,16 +53,9 @@ class PickAMovie < ActiveRecord::Base
       movies_app
     elsif purchase_prompt == "See recommended movies"
       recommended_selection = TTY::Prompt.new()
-      recommended_prompt = recommended_selection.select("Here are the movies we recommend for you:", [
-        "Ad Astra",
-        "Midsommar",
-        "Knives Out",
-        "Once Upon A Time in Hollywood",
-        "Parasite",
-        "Little Women",
-        "Joker",
-      ])
+      recommended_prompt = recommended_selection.select("Here are the movies we recommend for you:", [Movie.recommended])
       system "clear"
+      movies_app
     elsif purchase_prompt == "Exit"
       system "clear"
 
