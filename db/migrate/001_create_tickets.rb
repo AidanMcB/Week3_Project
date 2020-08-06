@@ -5,6 +5,7 @@ class CreateTickets < ActiveRecord::Migration[5.2]
             t.string :showtime
             t.string :price
             t.string :location
+            t.string :movie_name
             t.integer :movie_id
             t.integer :viewer_id
 

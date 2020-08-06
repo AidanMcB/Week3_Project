@@ -25,7 +25,6 @@ class PickAMovie < ActiveRecord::Base
       elsif age_prompt == "senior"
         @@total += @@seat_info * 8.00
       end
-      binding.pry
 
       location_selection = TTY::Prompt.new()
       location_prompt = location_selection.select("Where would you like to see the movie?", [Movie.locations(current_movie).uniq])
@@ -37,7 +36,7 @@ class PickAMovie < ActiveRecord::Base
         [Movie.showtimes(current_movie, location_prompt).uniq]
       )
 
-      ticket = Ticket.create({ seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_id: current_movie.id, viewer_id: viewer.id })
+      ticket = Ticket.create({ seats: @@seat_info, showtime: showtime_prompt, price: @@total, location: location_prompt, movie_name: current_movie.title, movie_id: current_movie.id, viewer_id: viewer.id })
       @@my_tickets.push(ticket)
       system "clear"
       spinner = TTY::Spinner.new("[:spinner] Loading your ticket...", format: :pulse_2)
@@ -45,7 +44,6 @@ class PickAMovie < ActiveRecord::Base
       spinner.auto_spin # Automatic animation with default interval
 
       sleep(2) # Perform task
-
       spinner.stop("Done!") # Stop animation
 
       spinner = TTY::Spinner.new(clear: true)
